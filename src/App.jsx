@@ -12,30 +12,18 @@ const App = () => {
   const addCountry = (newCountry) => {
     setCountries((countries) => {
       const newestCountries = [...countries, newCountry];
-      newestCountries.sort((a, b) => b.gold - a.gold);
+      return newestCountries.sort((a, b) => b.gold - a.gold);
     });
   };
 
-  const modifyCountry = (modifiedCountry) => {
-    setCountries((countries) => {
-      countries.map((country) => {
-        setCountries((prev) => {
-          const newestCountries = [...prev, newCountry];
-          return newestCountries.sort((a, b) => b.gold - a.gold);
-        });
-      });
-    });
-
-    console.log(countries);
-
     const modifyCountry = (modifiedCountry) => {
-      setCountries((prevCountries) => {
-        prevCountries.map((country) => {
+      setCountries((prevCountries) => 
+        prevCountries.map((country) => 
           country.name === modifiedCountry.name
             ? { ...country, ...modifiedCountry }
-            : country;
-        });
-      });
+            : country
+        )
+      )
     };
 
     return (
@@ -43,7 +31,7 @@ const App = () => {
         <MedalForm addCountry={addCountry} modifyCountry={modifyCountry} />
         <MedalList countries={countries} deleteCountry={deleteCountry} />
       </div>
-    );
+    )
   };
-};
+
 export default App;
