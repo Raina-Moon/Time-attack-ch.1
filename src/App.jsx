@@ -19,19 +19,31 @@ const App = () => {
   const modifyCountry = (modifiedCountry) => {
     setCountries((countries) => {
       countries.map((country) => {
-        country.name === modifiedCountry.name
-          ? { ...country, ...modifiedCountry }
-          : country;
+        setCountries((prev) => {
+          const newestCountries = [...prev, newCountry];
+          return newestCountries.sort((a, b) => b.gold - a.gold);
+        });
       });
     });
+
+    console.log(countries);
+
+    const modifyCountry = (modifiedCountry) => {
+      setCountries((prevCountries) => {
+        prevCountries.map((country) => {
+          country.name === modifiedCountry.name
+            ? { ...country, ...modifiedCountry }
+            : country;
+        });
+      });
+    };
+
+    return (
+      <div>
+        <MedalForm addCountry={addCountry} modifyCountry={modifyCountry} />
+        <MedalList countries={countries} deleteCountry={deleteCountry} />
+      </div>
+    );
   };
-
-  return (
-    <div>
-      <MedalForm addCountry={addCountry} modifyCountry={modifyCountry} />
-      <MedalList countries={countries} deleteCountry={deleteCountry} />
-    </div>
-  );
 };
-
 export default App;
